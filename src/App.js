@@ -20,14 +20,15 @@ class App extends Component {
     }]
   }
   componentDidMount(){
-     const fetchResults = (query = 'Yulia', filter = 'full', printType = 'magazine') => {
+     const fetchResults = (query = 'Yulia', filter = 'full', printType = 'magazines') => {
       let paramsObject = {
         q: query,
         filter,
         printType
       }
-      const paramString = Object.keys(paramsObject)
-      .map(key => `${key}=${paramsObject[key]}&`)
+      let paramString = ''
+      Object.keys(paramsObject)
+      .forEach(key => paramString += `${key}=${paramsObject[key]}&`)
       console.log('url param are:', paramString)
       fetch(`https://www.googleapis.com/books/v1/volumes/?${paramString}`)
       .then(res => res.json())
