@@ -49,6 +49,7 @@ class App extends Component {
           thumbnail: item.volumeInfo.imageLinks
           ? item.volumeInfo.imageLinks.thumbnail
           : 'https://via.placeholder.com/128x182',
+          isExpanded: false
         }))
         this.setState({
           items: itemsArray,
@@ -89,7 +90,22 @@ class App extends Component {
     })
     this.fetchResults(this.state.searchTerm, this.state.bookType, type)
   }
+  handleToggleExpanded = (obj) => {
+    console.log(obj)
+    return obj.isExpanded = !obj.isExpanded;
+    console.log(obj)
+  }
+  handleExpandedView = e => {
+    const itemId = e.currentTarget.id;
+    let filtered = this.state.items.filter( item => item.id === itemId);
+    let newState = this.state.items.filter( item => item.id !== itemId)
+    newState.push({...filtered[0], isExpanded: this.handleToggleExpanded(filtered[0])});
+    this.setState({
+      items: newState
+    })
+    console.log(newState);
 
+  }
   render() {
     return (
       <div className="App">
@@ -101,7 +117,9 @@ class App extends Component {
           handleFilterBookType={type => this.handleFilterBookType(type)}
           handleFilterPrint={type => this.handleFilterPrint(type)}
         />
-        <BookList results={this.state.items} />
+        <BookList results={this.state.items}
+        handleExpandedView={(e)=>this.handleExpandedView(e)}
+        />
       </div>
     )
   }
