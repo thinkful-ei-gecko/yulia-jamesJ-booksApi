@@ -3,7 +3,7 @@ import BookItem from './BookItem';
 
 export default function BookList(props) {
     const books =  props.results.map( (item, i) => 
-    <BookItem {...item} />)
+    <BookItem key={item.id} {...item} />)
 
     return (
         <ul>
