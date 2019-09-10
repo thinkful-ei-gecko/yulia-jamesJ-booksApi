@@ -6,7 +6,7 @@ export default function BookList(props) {
     <BookItem key={item.id} {...item} />)
 
     return (
-        <ul>
+        <ul className='booklist'>
            {books}
         </ul>
     )

@@ -2,3 +2,22 @@
   text-align: center;
 }
 
+.booklist {
+  list-style-type: none;
+}
+
+.bookitem {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid grey;
+  margin: 10px auto;
+}
+
+.bookitem-container {
+  flex-basis: 80%;
+}
+
+img {
+  height: 250px;
+}
+
