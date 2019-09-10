@@ -19,6 +19,22 @@ class App extends Component {
       author: "James Jenkins"
     }]
   }
+  componentDidMount(){
+     const fetchResults = (query = 'Yulia', filter = 'full', printType = 'magazine') => {
+      let paramsObject = {
+        q: query,
+        filter,
+        printType
+      }
+      const paramString = Object.keys(paramsObject)
+      .map(key => `${key}=${paramsObject[key]}&`)
+      console.log('url param are:', paramString)
+      fetch(`https://www.googleapis.com/books/v1/volumes/?${paramString}`)
+      .then(res => res.json())
+      .then(resJSON => console.log(resJSON))
+    }
+    fetchResults()
+  }
   render() {
     return (
       <div className="App">
