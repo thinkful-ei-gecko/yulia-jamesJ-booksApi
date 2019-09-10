@@ -20,7 +20,7 @@ class App extends Component {
     }]
   }
   componentDidMount(){
-     const fetchResults = (query = 'Yulia', filter = 'full', printType = 'magazines') => {
+     const fetchResults = (query = 'Yulia', filter = 'full', printType = 'books') => {
       let paramsObject = {
         q: query,
         filter,
@@ -32,7 +32,25 @@ class App extends Component {
       console.log('url param are:', paramString)
       fetch(`https://www.googleapis.com/books/v1/volumes/?${paramString}`)
       .then(res => res.json())
-      .then(resJSON => console.log(resJSON))
+      .then(resJSON => 
+        {console.log(resJSON);
+          let {items} = resJSON;
+          let itemsArray = items.map((item) => (
+        {
+          id: item.id,
+          title: item.volumeInfo.title,
+          author: item.volumeInfo.authors,
+          description: item.volumeInfo.description ? item.volumeInfo.description : "Description is not available",
+          price: item.saleInfo.listPrice ? item.saleInfo.listPrice.amount : "Price is not available"
+        }
+        ))
+        console.log(itemsArray);
+        this.setState({
+          items: itemsArray,
+        })
+      });
+        
+      
     }
     fetchResults()
   }
